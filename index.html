@@ -34,12 +34,10 @@
           </select>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-                aria-selected="true">List</a>
+              <a id="navListActiveID"  class="nav-link active" onclick="displayList()">List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                aria-selected="false">Calender</a>
+              <a id="navCalendarActiveID" class="nav-link" onclick="displayCalendar()">Calender</a>
             </li>
           </ul>
 
@@ -55,65 +53,66 @@
     <div class="px-5 py-2">
       <p class="text-muted mb-0">Showing <span id="items">145</span> results</p>
     </div>
-
+    
     <div class="container">
-      <table class="table border table-center">
-        <tr>
-          <th onclick="courseclick()">Course</th>
-          <th onclick="titleclick()">Title</th>
-          <th onclick="hourclick()">Hours</th>
-          <th onclick="availclick()">Availability</th>
-        </tr>
-        <tbody id="table"></tbody>
+        <div class="row mt-2 " id="Calender" >
+          <div class="col-lg-4 calendarCardsColumns" id="calendarcols">
+        
+          </div>
+          <div class="col-lg-8">
+            <div class="wrapper">
+        
+              <div class="container-calendar">
+                <div class="footer-container-calendar">
+                  <label for="month">Jump To: </label>
+                  <select id="month" onchange="jump()">
+                    <option value=0>Jan</option>
+                    <option value=1>Feb</option>
+                    <option value=2>Mar</option>
+                    <option value=3>Apr</option>
+                    <option value=4>May</option>
+                    <option value=5>Jun</option>
+                    <option value=6>Jul</option>
+                    <option value=7>Aug</option>
+                    <option value=8>Sep</option>
+                    <option value=9>Oct</option>
+                    <option value=10>Nov</option>
+                    <option value=11>Dec</option>
+                  </select>
+                  <select id="year" onchange="jump()"></select>
+                </div>
+                <h3 id="monthAndYear"></h3>
+        
+                <table class="table-calendar" id="calendar" data-lang="en">
+                  <thead id="thead-month"></thead>
+                  <tbody id="calendar-body"></tbody>
+                </table>
+        
+        
+        
+              </div>
+        
+            </div>
+          </div>
+        </div>
 
-      </table>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <div class="table-responsive mt-2">
+            <table class="table border table-center">
+              <tr>
+                <th onclick="courseclick()">Course</th>
+                <th onclick="titleclick()">Title</th>
+                <th onclick="hourclick()">Hours</th>
+                <th onclick="availclick()">Availability</th>
+              </tr>
+              <tbody id="table"></tbody>
 
+            </table>
           </div>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <div class="row mt-2">
-            <div class="col-lg-4 calendarCardsColumns" id="calendarcols">
-
-            </div>
-            <div class="col-lg-8">
-              <div class="wrapper">
-
-                <div class="container-calendar">
-                  <div class="footer-container-calendar">
-                    <label for="month">Jump To: </label>
-                    <select id="month" onchange="jump()">
-                      <option value=0>Jan</option>
-                      <option value=1>Feb</option>
-                      <option value=2>Mar</option>
-                      <option value=3>Apr</option>
-                      <option value=4>May</option>
-                      <option value=5>Jun</option>
-                      <option value=6>Jul</option>
-                      <option value=7>Aug</option>
-                      <option value=8>Sep</option>
-                      <option value=9>Oct</option>
-                      <option value=10>Nov</option>
-                      <option value=11>Dec</option>
-                    </select>
-                    <select id="year" onchange="jump()"></select>
-                  </div>
-                  <h3 id="monthAndYear"></h3>
-
-                  <table class="table-calendar" id="calendar" data-lang="en">
-                    <thead id="thead-month"></thead>
-                    <tbody id="calendar-body"></tbody>
-                  </table>
-
-
-
-                </div>
-
-              </div>
-            </div>
-          </div>
+        
 
         </div>
 
@@ -292,13 +291,11 @@
   </style>
   <!-- Scripts -->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <script>
+    
 
     var showall = 0;
     var list = [
@@ -469,14 +466,14 @@
     }
 
 
-    var $dataHead = "<tr>";
+    var dataHead = "<tr>";
     for (dhead in days) {
-      $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+      dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
     }
-    $dataHead += "</tr>";
+    dataHead += "</tr>";
 
-    //alert($dataHead);
-    document.getElementById("thead-month").innerHTML = $dataHead;
+
+    document.getElementById("thead-month").innerHTML = dataHead;
 
 
     monthAndYear = document.getElementById("monthAndYear");
@@ -516,40 +513,28 @@
     function constructTable(selector, list) {
       for (var i = 0; i < list.length; i++) {
         var row = '<tr><td>' + list[i].Course + '</td><td>' + list[i].Title + '</td><td>' + list[i].Hours + '</td><td>' + list[i].Availability + '</td></tr>';
-        $(selector).append(row);
+
+        el_up = document.getElementById("table").innerHTML += row;
+
       }
+
 
     }
     function constructTable1(selector, list) {
 
       for (var i = 0; i < list.length; i++) {
-        var divs = $("<div class='d-flex'> <div class='calendarDate text-center'>" + list[i].date + "</div><div class='courseDetails ml-2'><h5>" + list[i].name + "</h5><p>" + list[i].Title + "</p><p><i class='fas fa-map-marker-alt'></i>" + list[i].location + "</p><p><i class='fas fa-user-friends'></i> 5/ 11</p></div></div>");
-        $(selector).append(divs);
+        var divs = "<div class='d-flex'> <div class='calendarDate text-center'>" + list[i].date + "</div><div class='courseDetails ml-2'><h5>" + list[i].name + "</h5><p>" + list[i].Title + "</p><p><i class='fas fa-map-marker-alt'></i>" + list[i].location + "</p><p><i class='fas fa-user-friends'></i> 5/ 11</p></div></div>";
+
+        el_up = document.getElementById("calendarcols").innerHTML += divs;
       }
     }
-    function Headers(list, selector) {
-      var columns = [];
-      var header = $('<tr/>');
 
-      for (var i = 0; i < list.length; i++) {
-        var row = list[i];
-
-        for (var k in row) {
-          if ($.inArray(k, columns) == -1) {
-            columns.push(k);
-
-            // Creating the header
-            header.append($('<th/>').html(k));
-          }
-        }
-      }
-
-      // Appending the header to the table
-      $(selector).append(header);
-      return columns;
-    }
     //load Json to the page
     window.onload = (event) => {
+
+      document.getElementById('Calender').style.display = "none";
+
+
       var el_up = document.getElementById("table");
       var el_up1 = document.getElementById("calendarcols");
       var item = document.getElementById("items");
@@ -591,7 +576,7 @@
 
       constructTable(el_up, newlist);
       showCalendar(currentMonth, currentYear);
-      //console.log($newlist);
+
 
     }
     function search(value) {
@@ -621,7 +606,7 @@
       constructTable1(el_up1, newlist);
       constructTable(el_up, newlist);
       showCalendar(currentMonth, currentYear);
-      //console.log($newlist);
+
 
     }
     function showCalendar(month, year) {
@@ -704,7 +689,18 @@
       }
 
     }
-
+    function displayCalendar(){
+      document.getElementById('navListActiveID').setAttribute('class','nav-link');
+      document.getElementById('navCalendarActiveID').setAttribute('class', 'nav-link active');
+      document.getElementById('myTabContent').style.display = "none";
+      document.getElementById('Calender').style.display = "flex";
+    }
+    function displayList(){
+      document.getElementById('navListActiveID').setAttribute('class', 'nav-link active');
+      document.getElementById('navCalendarActiveID').setAttribute('class', 'nav-link');
+      document.getElementById('myTabContent').style.display = "block";
+      document.getElementById('Calender').style.display = "none";
+    }
   </script>
 </body>
 
