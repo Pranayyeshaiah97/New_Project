@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table</title>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+  <div class="app">
+    <div class="filter-search p-5 bg-light">
+      <h5>Search Course Catalog</h5>
+      <form>
+        <div class="form-group has-search">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input type="text" id="myInput" class="form-control" onkeyup="search(this.value)"
+            placeholder="Start Typing...">
+        </div>
+        <div class="d-flex">
+          <select class="custom-select mr-3" id="box" style="width: 15%" onchange="optionfilter(this.value)">
+            <option selected value="Availability">Availability</option>
+            <option value="Open">Open</option>
+            <option value="Waitlist">Waitlist</option>
+            <option value="Not Scheduled">Not Scheduled</option>
+          </select>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Calender</a>
+            </li>
+          </ul>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+
+
+    <div class="px-5 py-2">
+      <p class="text-muted mb-0">Showing <span id="items">145</span> results</p>
+    </div>
+
+    <div class="container">
+      <table class="table border table-center">
+        <tr>
+          <th onclick="courseclick()">Course</th>
+          <th onclick="titleclick()">Title</th>
+          <th onclick="hourclick()">Hours</th>
+          <th onclick="availclick()">Availability</th>
+        </tr>
+        <tbody id="table"></tbody>
+
+      </table>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="table-responsive mt-2">
+
+          </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row mt-2">
+            <div class="col-lg-4 calendarCardsColumns" id="calendarcols">
+
+            </div>
+            <div class="col-lg-8">
+              <div class="wrapper">
+
+                <div class="container-calendar">
+                  <div class="footer-container-calendar">
+                    <label for="month">Jump To: </label>
+                    <select id="month" onchange="jump()">
+                      <option value=0>Jan</option>
+                      <option value=1>Feb</option>
+                      <option value=2>Mar</option>
+                      <option value=3>Apr</option>
+                      <option value=4>May</option>
+                      <option value=5>Jun</option>
+                      <option value=6>Jul</option>
+                      <option value=7>Aug</option>
+                      <option value=8>Sep</option>
+                      <option value=9>Oct</option>
+                      <option value=10>Nov</option>
+                      <option value=11>Dec</option>
+                    </select>
+                    <select id="year" onchange="jump()"></select>
+                  </div>
+                  <h3 id="monthAndYear"></h3>
+
+                  <table class="table-calendar" id="calendar" data-lang="en">
+                    <thead id="thead-month"></thead>
+                    <tbody id="calendar-body"></tbody>
+                  </table>
+
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+  </div>
+  </div>
+  <style>
+    .has-search .form-control {
+      padding-left: 2.375rem;
+    }
+
+    .has-search .form-control-feedback {
+      position: absolute;
+      z-index: 2;
+      display: block;
+      width: 2.375rem;
+      height: 2.375rem;
+      line-height: 2.375rem;
+      text-align: center;
+      pointer-events: none;
+      color: #aaa;
+    }
+
+    thead {
+      background: lightgray;
+    }
+
+    .calendarCardsColumns {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .wrapper {
+      margin: 15px auto;
+      max-width: 1100px;
+    }
+
+    .container-calendar {
+      background: #ffffff;
+      padding: 15px;
+      max-width: 475px;
+      margin: 0 auto;
+      overflow: auto;
+    }
+
+    .button-container-calendar button {
+      cursor: pointer;
+      display: inline-block;
+      zoom: 1;
+      background: #ffcc00;
+      color: #fff;
+      border: 1px solid #ffcc00;
+      border-radius: 4px;
+      padding: 5px 10px;
+    }
+
+    .table-calendar {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table-calendar td,
+    .table-calendar th {
+      padding: 10px;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .date-picker.selected {
+      font-weight: bold;
+      background-color: #ffcc00;
+      color: white;
+      width: 10px;
+      border-radius: 50%;
+
+    }
+
+    .selectedblue {
+      border-radius: 50%;
+      width: 0;
+      background-color: #545eeb;
+      color: white;
+    }
+
+    .date-picker.selected span {}
+
+    /* sunday */
+    .date-picker:nth-child(1) {
+      color: red;
+    }
+
+    .todays_date {
+      position: absolute;
+      margin-left: 19px;
+      border: 2px solid blue;
+      border-radius: 50%;
+    }
+
+
+    /* friday */
+    .date-picker:nth-child(6) {
+      color: green;
+    }
+
+    #monthAndYear {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .button-container-calendar {
+      position: relative;
+      margin-bottom: 1em;
+      overflow: hidden;
+      clear: both;
+    }
+
+    #previous {
+      float: left;
+    }
+
+    #next {
+      float: right;
+    }
+
+    .footer-container-calendar {
+      margin-top: 1em;
+      padding: 10px 0;
+    }
+
+    .footer-container-calendar select {
+      cursor: pointer;
+      display: inline-block;
+      zoom: 1;
+      background: #ffffff;
+      color: #585858;
+      border: 1px solid #bfc5c5;
+      border-radius: 3px;
+      padding: 5px 1em;
+    }
+
+    .courseDetails {
+      line-height: 1px;
+    }
+
+    p {
+      font-size: 10px;
+      color: grey;
+    }
+
+    .calendarDate {
+      background-color: lightgray;
+      padding: 7px 17px;
+      height: 90px;
+    }
+
+    .todaysAvailabilityDate {
+      position: absolute;
+      margin-left: 16px;
+      border: 2px solid #ffcc00;
+      border-radius: 50%;
+    }
+
+    .todaysAvailabilityDate span {
+      padding: 10px 4px;
+    }
+
+    .todaysOpenDate {
+      position: absolute;
+      margin-left: 18px;
+      border: 2px solid #545eeb;
+      border-radius: 50%;
+    }
+  </style>
+  <!-- Scripts -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script>
+
+    var showall = 0;
+    var list = [
+
+      { "Course": "BRG251", "Title": "FRD", "Hours": "20", "Availability": "Open", "date": "July 21 2021", "name": "TxDOT Environmental Process for Local Governments", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "SRG250", "Title": "GRD", "Hours": "20", "Availability": "Waitlist", "date": "July 28 2021", "name": "TxDOT Environmental Process for Local Governments test1", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "test", "Title": "FRD", "Hours": "20", "Availability": "Open", "date": "July 21 2021", "name": "TxDOT Environmental Process for Local Governments testing", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "Abcd", "Title": "OWD", "Hours": "20", "Availability": "Not Scheduled", "date": "JUNE 24 2021", "name": "TxDOT Environmental Process for Local Governments test", "location": "VIR-VIRTUAL Instructor-led Training" }
+
+    ];
+    var temp_list = list;
+    var course1 = 0;
+    var title1 = 0;
+    var hour1 = 0;
+    var avail1 = 0;
+    function courseclick() {
+
+      if (course1 == 0) {
+        list = list.sort(GetSortOrder("Course"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+        course1 = 1;
+
+      }
+      else if (course1 == 1) {
+        course1 = 0;
+        list = list.sort(GetreSortOrder("Course"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+
+      }
+      console.log(course1)
+
+    }
+    function titleclick() {
+
+      if (title1 == 0) {
+        list = list.sort(GetSortOrder("Title"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+        title1 = 1;
+
+      }
+      else if (title1 == 1) {
+        title1 = 0;
+        list = list.sort(GetreSortOrder("Title"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+
+      }
+      console.log(course1)
+
+    }
+    function hourclick() {
+
+      if (hour1 == 0) {
+        list = list.sort(GetSortOrder("Hours"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+        hour1 = 1;
+
+      }
+      else if (hour1 == 1) {
+        hour1 = 0;
+        list = list.sort(GetreSortOrder("Hours"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+
+      }
+      console.log(course1)
+
+    }
+    function availclick() {
+
+      if (avail1 == 0) {
+        list = list.sort(GetSortOrder("Availability"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+        avail1 = 1;
+
+      }
+      else if (avail1 == 1) {
+        avail1 = 0;
+        list = list.sort(GetreSortOrder("Availability"));
+        var el_up = document.getElementById("table");
+        el_up.innerHTML = "";
+        constructTable(el_up, list);
+
+      }
+      console.log(course1)
+
+    }
+
+    function GetSortOrder(prop) {
+      return function (a, b) {
+
+        if (a[prop] > b[prop]) {
+          return 1;
+        } else if (a[prop] < b[prop]) {
+          return -1;
+        }
+        return 0;
+      }
+    }
+    function GetreSortOrder(prop) {
+      return function (a, b) {
+
+        if (a[prop] < b[prop]) {
+          return 1;
+        } else if (a[prop] > b[prop]) {
+          return -1;
+        }
+        return 0;
+      }
+    }
+
+    function generate_year_range(start, end) {
+      var years = "";
+      for (var year = start; year <= end; year++) {
+        years += "<option value='" + year + "'>" + year + "</option>";
+      }
+      return years;
+    }
+
+    today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    selectYear = document.getElementById("year");
+    selectMonth = document.getElementById("month");
+
+
+    createYear = generate_year_range(1970, 2050);
+    /** or
+     * createYear = generate_year_range( 1970, currentYear );
+     */
+
+    document.getElementById("year").innerHTML = createYear;
+
+    var calendar = document.getElementById("calendar");
+    var lang = calendar.getAttribute('data-lang');
+
+    var months = "";
+    var days = "";
+
+    var monthDefault = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    var dayDefault = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    if (lang == "en") {
+      months = monthDefault;
+      days = dayDefault;
+    } else if (lang == "id") {
+      months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      days = ["Ming", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+    } else if (lang == "fr") {
+      months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+      days = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+    } else {
+      months = monthDefault;
+      days = dayDefault;
+    }
+
+
+    var $dataHead = "<tr>";
+    for (dhead in days) {
+      $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+    }
+    $dataHead += "</tr>";
+
+    //alert($dataHead);
+    document.getElementById("thead-month").innerHTML = $dataHead;
+
+
+    monthAndYear = document.getElementById("monthAndYear");
+    showCalendar(currentMonth, currentYear);
+
+
+
+    function next() {
+      currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+      currentMonth = (currentMonth + 1) % 12;
+      showCalendar(currentMonth, currentYear);
+    }
+
+    function previous() {
+      currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+      currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+      showCalendar(currentMonth, currentYear);
+    }
+
+    function jump() {
+      currentYear = parseInt(selectYear.value);
+      currentMonth = parseInt(selectMonth.value);
+      showCalendar(currentMonth, currentYear);
+    }
+
+
+
+    function daysInMonth(iMonth, iYear) {
+      return 32 - new Date(iYear, iMonth, 32).getDate();
+    }
+
+
+
+
+
+
+    function constructTable(selector, list) {
+      for (var i = 0; i < list.length; i++) {
+        var row = '<tr><td>' + list[i].Course + '</td><td>' + list[i].Title + '</td><td>' + list[i].Hours + '</td><td>' + list[i].Availability + '</td></tr>';
+        $(selector).append(row);
+      }
+
+    }
+    function constructTable1(selector, list) {
+
+      for (var i = 0; i < list.length; i++) {
+        var divs = $("<div class='d-flex'> <div class='calendarDate text-center'>" + list[i].date + "</div><div class='courseDetails ml-2'><h5>" + list[i].name + "</h5><p>" + list[i].Title + "</p><p><i class='fas fa-map-marker-alt'></i>" + list[i].location + "</p><p><i class='fas fa-user-friends'></i> 5/ 11</p></div></div>");
+        $(selector).append(divs);
+      }
+    }
+    function Headers(list, selector) {
+      var columns = [];
+      var header = $('<tr/>');
+
+      for (var i = 0; i < list.length; i++) {
+        var row = list[i];
+
+        for (var k in row) {
+          if ($.inArray(k, columns) == -1) {
+            columns.push(k);
+
+            // Creating the header
+            header.append($('<th/>').html(k));
+          }
+        }
+      }
+
+      // Appending the header to the table
+      $(selector).append(header);
+      return columns;
+    }
+    //load Json to the page
+    window.onload = (event) => {
+      var el_up = document.getElementById("table");
+      var el_up1 = document.getElementById("calendarcols");
+      var item = document.getElementById("items");
+      item.innerHTML = list.length;
+      constructTable(el_up, list);
+      constructTable1(el_up1, list);
+    };
+    function optionfilter(value) {
+      var el_up1 = document.getElementById("calendarcols");
+      var el_up = document.getElementById("table");
+      if (value == "Open") {
+        showall = 1;
+      }
+      else {
+        showall = 0;
+      }
+      var newlist = [];
+      for (var i = 0; i < list.length; i++) {
+
+        if (list[i].Availability == value) {
+          newlist.push(list[i]);
+          //alert(i);
+        }
+      }
+      if (value == "Availability") {
+        newlist = list;
+      }
+      if (newlist.length == 0) {
+        el_up.innerHTML = "No Data";
+        el_up1.innerHTML = "No Data";
+      } else {
+        el_up.innerHTML = "";
+        el_up1.innerHTML = "";
+      }
+      var item = document.getElementById("items");
+      item.innerHTML = newlist.length;
+      temp_list = newlist;
+      constructTable1(el_up1, newlist);
+
+      constructTable(el_up, newlist);
+      showCalendar(currentMonth, currentYear);
+      //console.log($newlist);
+
+    }
+    function search(value) {
+      var newlist = [];
+      for (var i = 0; i < list.length; i++) {
+
+        if (list[i].Course.toUpperCase().includes(value.toUpperCase()) || list[i].Title.toUpperCase().includes(value.toUpperCase())) {
+          newlist.push(list[i]);
+          //alert(i);
+        }
+      }
+      if (value == "Availability") {
+        newlist = list;
+      }
+      var el_up = document.getElementById("table");
+      var el_up1 = document.getElementById("calendarcols");
+      if (newlist.length == 0) {
+        el_up.innerHTML = "No Data";
+        el_up1.innerHTML = "No Data";
+      } else {
+        el_up.innerHTML = "";
+        el_up1.innerHTML = "";
+      }
+      var item = document.getElementById("items");
+      item.innerHTML = newlist.length;
+      temp_list = newlist;
+      constructTable1(el_up1, newlist);
+      constructTable(el_up, newlist);
+      showCalendar(currentMonth, currentYear);
+      //console.log($newlist);
+
+    }
+    function showCalendar(month, year) {
+
+      var firstDay = (new Date(year, month)).getDay();
+
+      tbl = document.getElementById("calendar-body");
+
+
+      tbl.innerHTML = "";
+
+
+      monthAndYear.innerHTML = months[month] + " " + year;
+      selectYear.value = year;
+      selectMonth.value = month;
+
+      // creating all cells
+      var date = 1;
+      for (var i = 0; i < 6; i++) {
+
+        var row = document.createElement("tr");
+
+
+        for (var j = 0; j < 7; j++) {
+          if (i === 0 && j < firstDay) {
+            cell = document.createElement("td");
+            cellText = document.createTextNode("");
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+          } else if (date > daysInMonth(month, year)) {
+            break;
+          } else {
+            cell = document.createElement("td");
+            cell.setAttribute("data-date", date);
+            cell.setAttribute("data-month", month + 1);
+            cell.setAttribute("data-year", year);
+            cell.setAttribute("data-month_name", months[month]);
+            cell.className = "date-picker";
+            cell.innerHTML = "<span>" + date + "</span>";
+            for (let index = 0; index < temp_list.length; index++) {
+              // if(date===Date.parse(list[index].date).getDate()){
+              //     cell.className = "date-picker selected";
+              // }
+              var count = 0;
+              var d = new Date(temp_list[index].date);
+              if (date === d.getDate() && month === d.getMonth() && year === d.getFullYear() && temp_list[index].Availability == "Open") {
+                for (let index1 = 0; index1 < temp_list.length; index1++) {
+                  if (temp_list[index].date == temp_list[index1].date) {
+                    count++;
+                  }
+                }
+                if (showall == 0) {
+                  cell.className = "date-picker selected";
+
+                }
+                else {
+                  cell.innerHTML = count;
+                  cell.className = "date-picker selectedblue";
+                }
+
+              }
+              else if (date === d.getDate() && month === d.getMonth() && year === d.getFullYear()) {
+                cell.className = "date-picker selected";
+              }
+            }
+            if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth() && showall == 0) {
+              cell.className = "date-picker  todaysAvailabilityDate";
+            }
+            else if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth() && showall == 1) {
+              cell.className = "date-picker  todaysOpenDate";
+            }
+            row.appendChild(cell);
+            date++;
+          }
+
+
+        }
+
+        tbl.appendChild(row);
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>
