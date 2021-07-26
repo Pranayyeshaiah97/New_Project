@@ -307,6 +307,7 @@
 
     ];
     var temp_list = list;
+    var temp_list1 = list;
     var course1 = 0;
     var title1 = 0;
     var hour1 = 0;
@@ -314,19 +315,19 @@
     function courseclick() {
 
       if (course1 == 0) {
-        list = list.sort(GetSortOrder("Course"));
+        listsort = temp_list1.sort(GetSortOrder("Course"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
         course1 = 1;
 
       }
       else if (course1 == 1) {
         course1 = 0;
-        list = list.sort(GetreSortOrder("Course"));
+        listsort = temp_list1.sort(GetreSortOrder("Course"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
 
       }
       console.log(course1)
@@ -335,19 +336,19 @@
     function titleclick() {
 
       if (title1 == 0) {
-        list = list.sort(GetSortOrder("Title"));
+        listsort = temp_list1.sort(GetSortOrder("Title"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
         title1 = 1;
 
       }
       else if (title1 == 1) {
         title1 = 0;
-        list = list.sort(GetreSortOrder("Title"));
+        listsort = temp_list1.sort(GetreSortOrder("Title"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
 
       }
       console.log(course1)
@@ -356,19 +357,19 @@
     function hourclick() {
 
       if (hour1 == 0) {
-        list = list.sort(GetSortOrder("Hours"));
+        lislistsortt = temp_list1.sort(GetSortOrder("Hours"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
         hour1 = 1;
 
       }
       else if (hour1 == 1) {
         hour1 = 0;
-        list = list.sort(GetreSortOrder("Hours"));
+        listsort = temp_list1.sort(GetreSortOrder("Hours"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
 
       }
       console.log(course1)
@@ -377,19 +378,19 @@
     function availclick() {
 
       if (avail1 == 0) {
-        list = list.sort(GetSortOrder("Availability"));
+        listsort = temp_list1.sort(GetSortOrder("Availability"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
         avail1 = 1;
 
       }
       else if (avail1 == 1) {
         avail1 = 0;
-        list = list.sort(GetreSortOrder("Availability"));
+        listsort = temp_list1.sort(GetreSortOrder("Availability"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
-        constructTable(el_up, list);
+        constructTable(el_up, listsort);
 
       }
       console.log(course1)
@@ -577,6 +578,7 @@
       constructTable(el_up, newlist);
       showCalendar(currentMonth, currentYear);
 
+      temp_list1 = newlist;
 
     }
     function search(value) {
@@ -607,6 +609,7 @@
       constructTable(el_up, newlist);
       showCalendar(currentMonth, currentYear);
 
+      temp_list1 = newlist;
 
     }
     function showCalendar(month, year) {
