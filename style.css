@@ -44,7 +44,7 @@ thead {
 }
 
 .wrapper {
-  margin: 15px auto;
+  margin: -35px auto;
   max-width: 1100px;
 }
 
@@ -98,9 +98,6 @@ thead {
 }
 
 /* sunday */
-.date-picker:nth-child(1) {
-  color: red;
-}
 
 .todays_date {
   position: absolute;
@@ -110,9 +107,6 @@ thead {
 }
 
 /* friday */
-.date-picker:nth-child(6) {
-  color: green;
-}
 
 #monthAndYear {
   text-align: center;
@@ -172,7 +166,8 @@ p {
 
 .todaysOpenDate {
   position: absolute;
-  margin-left: 18px;
+  margin-left: 11px;
   border: 2px solid #ffcc00;
   border-radius: 50%;
+  width: 47px;
 }

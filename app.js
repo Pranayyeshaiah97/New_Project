@@ -2,9 +2,9 @@
     var showall = 0;
     var list = [
 
-      { "Course": "BRG251", "Title": "FRD", "Hours": "11", "Availability": "Open", "date": "July 21 2021", "name": "TxDOT Environmental Process for Local Governments", "location": "VIR-VIRTUAL Instructor-led Training" },
-      { "Course": "SRG250", "Title": "GRD", "Hours": "12", "Availability": "Waitlist", "date": "July 28 2021", "name": "TxDOT Environmental Process for Local Governments test1", "location": "VIR-VIRTUAL Instructor-led Training" },
-      { "Course": "test", "Title": "FRD", "Hours": "13", "Availability": "Open", "date": "July 21 2021", "name": "TxDOT Environmental Process for Local Governments testing", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "BRG251", "Title": "FRD", "Hours": "11", "Availability": "Open", "date": "July 04 2021", "name": "TxDOT Environmental Process for Local Governments", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "SRG250", "Title": "GRD", "Hours": "12", "Availability": "Waitlist", "date": "July 15 2021", "name": "TxDOT Environmental Process for Local Governments test1", "location": "VIR-VIRTUAL Instructor-led Training" },
+      { "Course": "test", "Title": "FRD", "Hours": "13", "Availability": "Open", "date": "July 29 2021", "name": "TxDOT Environmental Process for Local Governments testing", "location": "VIR-VIRTUAL Instructor-led Training" },
       { "Course": "Abcd", "Title": "OWD", "Hours": "14", "Availability": "Not Scheduled", "date": "JUNE 24 2021", "name": "TxDOT Environmental Process for Local Governments test", "location": "VIR-VIRTUAL Instructor-led Training" },
       
 
