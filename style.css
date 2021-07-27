@@ -1,0 +1,178 @@
+.custom-select {
+  width: 15%;
+}
+.calendarDate {
+  background-color: lightgray;
+  padding: 7px 17px;
+  height: 90px;
+}
+@media only screen and (max-width: 885px) {
+  .custom-select {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+  .calendarDate {
+    background-color: lightgray;
+    padding: 22px 17px;
+    height: 90px;
+  }
+}
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+thead {
+  background: lightgray;
+}
+
+.calendarCardsColumns {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.wrapper {
+  margin: 15px auto;
+  max-width: 1100px;
+}
+
+.container-calendar {
+  background: #ffffff;
+  padding: 15px;
+  max-width: 475px;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.button-container-calendar button {
+  cursor: pointer;
+  display: inline-block;
+  zoom: 1;
+  background: #ffcc00;
+  color: #fff;
+  border: 1px solid #ffcc00;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.table-calendar {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-calendar td,
+.table-calendar th {
+  padding: 10px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.date-picker.selected {
+  font-weight: bold;
+  background-color: #545eeb;
+  color: white;
+  width: 10px;
+  border-radius: 50%;
+}
+
+.selectedblue {
+  border-radius: 50%;
+  width: 0;
+  background-color: #ffcc00;
+  color: white;
+}
+
+.date-picker.selected span {
+}
+
+/* sunday */
+.date-picker:nth-child(1) {
+  color: red;
+}
+
+.todays_date {
+  position: absolute;
+  margin-left: 19px;
+  border: 2px solid blue;
+  border-radius: 50%;
+}
+
+/* friday */
+.date-picker:nth-child(6) {
+  color: green;
+}
+
+#monthAndYear {
+  text-align: center;
+  margin-top: 0;
+}
+
+.button-container-calendar {
+  position: relative;
+  margin-bottom: 1em;
+  overflow: hidden;
+  clear: both;
+}
+
+#previous {
+  float: left;
+}
+
+#next {
+  float: right;
+}
+
+.footer-container-calendar {
+  margin-top: 1em;
+  padding: 10px 0;
+}
+
+.footer-container-calendar select {
+  cursor: pointer;
+  display: inline-block;
+  zoom: 1;
+  background: #ffffff;
+  color: #585858;
+  border: 1px solid #bfc5c5;
+  border-radius: 3px;
+  padding: 5px 1em;
+}
+
+.courseDetails {
+  line-height: 1px;
+}
+
+p {
+  font-size: 10px;
+  color: grey;
+}
+
+.todaysAvailabilityDate {
+  position: absolute;
+  margin-left: 16px;
+  border: 2px solid #545eeb;
+  border-radius: 50%;
+}
+
+.todaysAvailabilityDate span {
+  padding: 10px 4px;
+}
+
+.todaysOpenDate {
+  position: absolute;
+  margin-left: 18px;
+  border: 2px solid #ffcc00;
+  border-radius: 50%;
+}
