@@ -60,7 +60,7 @@
     function hourclick() {
 
       if (hour1 == 0) {
-        lislistsortt = temp_list1.sort(GetSortOrder("Hours"));
+        listsort = temp_list1.sort(GetSortOrder("Hours"));
         var el_up = document.getElementById("table");
         el_up.innerHTML = "";
         constructTable(el_up, listsort);
